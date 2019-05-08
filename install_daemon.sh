@@ -8,11 +8,11 @@ apt-get update
 apt-get upgrade -y
 
 # Line 1: base
-# Line 2: required for node.js/yarn installation
+# Line 2: required for node.js/yarn/docker installation
 # Line 3: required for Pterodactyl daemon building
 apt-get install -y \
     locales tzdata \
-    apt-transport-https apt-utils lsb-release curl \
+    apt-transport-https apt-utils lsb-release curl gnupg-agent ca-certificates software-properties-common \
     gnupg unzip make gcc g++ python
 
 # Set up locale and timezone
@@ -20,20 +20,18 @@ locale-gen en_US.UTF-8
 update-locale LANG=en_US.UTF-8
 ln -sf /usr/share/zoneinfo/UTC /etc/localtime
 
-# Set up and install Node.js and Yarn
+# Set up and install Docker, Node.js and Yarn
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 
-cat > /etc/apt/sources.list.d/nodesource.list <<EOF
-deb https://deb.nodesource.com/${NODEREPO} ${DISTRO} main
-deb-src https://deb.nodesource.com/${NODEREPO} ${DISTRO} main
-EOF
-
+echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu ${DISTRO} stable" > /etc/apt/sources.list.d/docker.list
+echo "deb https://deb.nodesource.com/${NODEREPO} ${DISTRO} main" > /etc/apt/sources.list.d/nodesource.list
 echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
 
-# Install node.js and yarn
+# Install docker, node.js and yarn
 apt-get update
-apt-get install -y nodejs yarn
+apt-get install -y docker-ce-cli nodejs yarn
 
 # Install Pterodactyl daemon
 mkdir -p /srv/daemon /srv/daemon-data \
