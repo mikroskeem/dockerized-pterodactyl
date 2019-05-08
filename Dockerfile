@@ -17,6 +17,7 @@ VOLUME /var/lib/docker.sock
 
 # Expose ports
 EXPOSE 80/tcp
+EXPOSE 2022/tcp
 
 # Default entry point
 WORKDIR /srv/daemon
