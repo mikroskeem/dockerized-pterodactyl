@@ -13,6 +13,7 @@ RUN \
 VOLUME /srv/daemon/config
 VOLUME /srv/daemon/packs
 VOLUME /srv/daemon-data
+VOLUME /tmp/pterodactyl
 VOLUME /var/lib/docker.sock
 
 # Expose ports
