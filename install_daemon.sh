@@ -33,8 +33,9 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/
 apt-get update
 apt-get install -y docker-ce-cli nodejs yarn
 
-# Set up pterodactyl user
-useradd --system -s /bin/false -d / pterodactyl
+# Set up pterodactyl user and group
+groupadd --system -g 999 pterodactyl
+useradd --system -u 999 -g 999 -s /bin/false -d / pterodactyl
 
 # Install Pterodactyl daemon
 mkdir -p /srv/daemon /srv/daemon-data \
