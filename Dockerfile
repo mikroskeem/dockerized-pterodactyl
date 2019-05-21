@@ -7,6 +7,7 @@ RUN \
     NODEREPO=node_10.x \
     DISTRO=bionic \
     PTERODACTYL_RELEASE=v0.6.12 \
+    PTERODACTYL_SFTP_RELEASE=v1.0.4 \
     /install_daemon.sh && rm /install_daemon.sh
 
 # Expose volumes
@@ -23,4 +24,6 @@ EXPOSE 2022/tcp
 
 # Default entry point
 WORKDIR /srv/daemon
+COPY docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["yarn", "start"]

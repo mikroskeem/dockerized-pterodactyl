@@ -33,10 +33,15 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/
 apt-get update
 apt-get install -y docker-ce-cli nodejs yarn
 
+# Set up pterodactyl user
+useradd --system -s /bin/false -d / pterodactyl
+
 # Install Pterodactyl daemon
 mkdir -p /srv/daemon /srv/daemon-data \
     && cd /srv/daemon \
     && curl -s -L "https://github.com/pterodactyl/daemon/releases/download/${PTERODACTYL_RELEASE}/daemon.tar.gz" | tar --strip-components=1 -xzf - \
+    && curl -Lo sftp-server "https://github.com/pterodactyl/sftp-server/releases/download/${PTERODACTYL_SFTP_RELEASE}/sftp-server" \
+    && chmod +x sftp-server \
     && rm package-lock.json \
     && yarn install --production
 
