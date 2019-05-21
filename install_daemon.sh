@@ -15,6 +15,11 @@ apk add \
 # Set up timezone
 ln -sf /usr/share/zoneinfo/UTC /etc/localtime
 
+# Set up pterodactyl user and group
+sed -i '/.*:999:.*/d' /etc/group # ping group?
+addgroup -S -g 999 pterodactyl
+adduser -G pterodactyl -u 999 -s /bin/false -H -D -h / pterodactyl
+
 # Install Pterodactyl daemon
 mkdir -p /srv/daemon /srv/daemon-data \
     && cd /srv/daemon \
@@ -24,3 +29,4 @@ mkdir -p /srv/daemon /srv/daemon-data \
 
 # Clean up
 apk del make gcc g++ python tar
+rm -rf /var/cache/apk/*
