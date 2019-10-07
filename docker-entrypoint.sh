@@ -22,7 +22,7 @@ if [ "${*}" = "yarn start" ]; then
     fi
 
     # Set up Docker socket bridge
-    setup_bridge=0
+    setup_bridge=1
     if [ -f /var/run/docker.sock ]; then
         # TODO: test connection first
         rm /var/run/docker.sock
@@ -35,6 +35,7 @@ if [ "${*}" = "yarn start" ]; then
             echo ">>> Environment variable 'DOCKER_TCP_DEST' is not set"
             exit 1
         fi
+        echo ">>> Starting socat"
         socat unix-listen:/var/run/docker.sock,fork tcp:"${DOCKER_TCP_DEST}" &
         echo "${!}" > "${SOCAT_PIDFILE}"
     fi
