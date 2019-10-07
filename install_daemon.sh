@@ -10,10 +10,12 @@ apt-get upgrade -y
 # Line 1: base
 # Line 2: required for node.js/yarn/docker installation
 # Line 3: required for Pterodactyl daemon building
+# Line 4: required for workarounds
 apt-get install -y \
     locales tzdata \
     apt-transport-https apt-utils lsb-release curl gnupg-agent ca-certificates software-properties-common \
-    gnupg unzip make gcc g++ python
+    gnupg unzip make gcc g++ python \
+    socat
 
 # Set up locale and timezone
 locale-gen en_US.UTF-8
