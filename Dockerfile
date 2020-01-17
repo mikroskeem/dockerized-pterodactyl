@@ -4,7 +4,7 @@ LABEL maintainer="Mark Vainomaa <mikroskeem@mikroskeem.eu>"
 # Install base system
 COPY install_daemon.sh /
 RUN \
-    NODEREPO=node_10.x \
+    NODEREPO=node_12.x \
     DISTRO=bionic \
     PTERODACTYL_RELEASE=v0.6.12 \
     PTERODACTYL_SFTP_RELEASE=v1.0.4 \
